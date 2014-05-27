@@ -3,6 +3,7 @@ ArrayList<Zombie> zombies;
 Zombie zombie;
 Board board;
 int WIDTH = 1024, HEIGHT = 700;
+int noScreen;
 
 
 Screen currentScreen;
@@ -10,6 +11,9 @@ Screen currentScreen;
 void setup(){
     frame.setResizable(true);
     setScreen(new MainMenuScreen(this,500,400,"images/mainMenuBG.jpg"));
+    size(currentScreen.getWidth(),currentScreen.getHeight());
+    noScreen = 0;
+    
     /*size(WIDTH,HEIGHT);
     peashooters = new ArrayList<Peashooter>();
     zombies = new ArrayList<Zombie>();
@@ -37,10 +41,22 @@ void setScreen(Screen screen){
 void keyPressed(){
     switch(keyCode){
         case ENTER:
-            
-            setScreen(new StageSelectScreen(this,1024,700,"images/plants/peashooter.png"));
-            //setSize(800,800);
+            if(noScreen == 0){
+                setScreen(new StageSelectScreen(this,1024,700,"images/stageSelectBG.png"));
+                noScreen = 1;  
+            }else if(noScreen == 1){
+                setScreen(new GameScreen(this,1024,700,"images/gameBG.png"));
+                noScreen = 2;
+            }
         break;
+    }
+}
+
+void mouseClicked(){
+    if(noScreen == 2){
+        println(":D");
+        //Board board = currentScreen.getBoard();
+        //board.getCell(mouseX,mouseY);
     }
 }
 

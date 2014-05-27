@@ -10,7 +10,7 @@ class Cell{
     }
     
     public void drawSelf(){
-        fill(255,0,0);
+        fill(255,0,0,0.3);
         rect(cellX,cellY,cellWidth,cellHeight);
     }
 }
