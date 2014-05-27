@@ -4,23 +4,53 @@ Zombie zombie;
 Board board;
 int WIDTH = 1024, HEIGHT = 700;
 
+
+Screen currentScreen;
+
 void setup(){
-    size(WIDTH,HEIGHT);
+    frame.setResizable(true);
+    setScreen(new MainMenuScreen(this,500,400,"images/mainMenuBG.jpg"));
+    /*size(WIDTH,HEIGHT);
     peashooters = new ArrayList<Peashooter>();
     zombies = new ArrayList<Zombie>();
     //zombie = new Zombie(800,100,10);
-    board = new Board(5,9,WIDTH/9,100);
+    board = new Board(5,9,WIDTH/9,100);*/
 }
 
 
 void draw(){
-    background(255);
+    currentScreen.render();
+    /*background(255);
     render();
     //paintPlants();
-    //paintBoard();
+    //paintBoard();*/
 }
 
-void mouseClicked(){
+void setScreen(Screen screen){
+    currentScreen = screen;
+    frame.setSize(currentScreen.getWidth(),currentScreen.getHeight());
+}
+
+
+
+/*Input*/
+void keyPressed(){
+    switch(keyCode){
+        case ENTER:
+            
+            setScreen(new StageSelectScreen(this,1024,700,"images/plants/peashooter.png"));
+            //setSize(800,800);
+        break;
+    }
+}
+
+
+
+
+
+
+
+/*void mouseClicked(){
     peashooters.add(new Peashooter(5,100,5,mouseX-25,mouseY-25));
     zombies.add(new Zombie(800,100,0.5));
 }
@@ -46,4 +76,4 @@ void paintBoard(){
             cell.drawSelf();
         }
     }
-}
+}*/
