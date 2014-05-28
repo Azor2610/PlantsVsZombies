@@ -34,10 +34,7 @@ class Board{
     
     public int getColumns(){return columns;}
     
-    public Cell getCell(int x, int y){
-        int c = x/cellWidth+initX;
-        int r = y/cellHeight+initY;
-        println(r+","+c);
-        return cellArray[0][0];
+    public Cell getCell(int r, int c){
+        return cellArray[r][c];
     }
 }
