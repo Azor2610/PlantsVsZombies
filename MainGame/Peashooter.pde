@@ -2,8 +2,11 @@ class Peashooter extends Plant{
     
     PImage img;
   
-    public Peashooter(int hp, int cost, int cooldown,float x, float y){
-        super(hp,cost,cooldown,x,y);
+    public Peashooter(float x, float y){
+        super(x,y);
+        hp = 100;
+        cost = 50;
+        cooldown = 5;
         img = loadImage("images/plants/peashooter.png");
     }
     

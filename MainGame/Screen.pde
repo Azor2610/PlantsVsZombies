@@ -13,6 +13,8 @@ class Screen{
     
     public void render(){}
     
+    public Board getBoard(){ return null;}
+    
     public int getWidth(){return screenWidth;}
     
     public int getHeight(){return screenHeight;}

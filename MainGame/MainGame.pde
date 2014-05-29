@@ -1,18 +1,28 @@
-ArrayList<Peashooter> peashooters;
+import geomerative.*;
+import org.apache.batik.svggen.font.table.*;
+import org.apache.batik.svggen.font.*;
+
+ArrayList<Plant> plants;
 ArrayList<Zombie> zombies;
 Zombie zombie;
 Board board;
 int WIDTH = 1024, HEIGHT = 700;
 int noScreen;
 
-
+Player player;
 Screen currentScreen;
 
 void setup(){
+    RG.init(this);
     frame.setResizable(true);
-    setScreen(new MainMenuScreen(this,500,400,"images/mainMenuBG.jpg"));
+    player = new Player();
+    plants = new ArrayList<Plant>();
+    //setScreen(new MainMenuScreen(this,500,400,"images/mainMenuBG.jpg"));
+    setScreen(new GameScreen(this,1024,700,"images/gameBG.png",player));
     size(currentScreen.getWidth(),currentScreen.getHeight());
-    noScreen = 0;
+    noScreen = 2;
+    
+    
     
     /*size(WIDTH,HEIGHT);
     peashooters = new ArrayList<Peashooter>();
@@ -24,9 +34,10 @@ void setup(){
 
 void draw(){
     currentScreen.render();
+    paintPlants();
     /*background(255);
     render();
-    //paintPlants();
+    paintPlants();
     //paintBoard();*/
 }
 
@@ -45,7 +56,7 @@ void keyPressed(){
                 setScreen(new StageSelectScreen(this,1024,700,"images/stageSelectBG.png"));
                 noScreen = 1;  
             }else if(noScreen == 1){
-                setScreen(new GameScreen(this,1024,700,"images/gameBG.png"));
+                setScreen(new GameScreen(this,1024,700,"images/gameBG.png",player));
                 noScreen = 2;
             }
         break;
@@ -54,12 +65,36 @@ void keyPressed(){
 
 void mouseClicked(){
     if(noScreen == 2){
-        println(":D");
-        //Board board = currentScreen.getBoard();
-        //board.getCell(mouseX,mouseY);
+        Board board = currentScreen.getBoard();
+        Cell cell = board.getCellXY(mouseX,mouseY);
+        if(cell != null){
+            if(cell.isAvailable()){
+                plant(cell,player.getCurrentPlant());
+            } 
+        }
     }
 }
 
+
+void plant(Cell cell, int plant){
+    int[] xy = cell.getCenter();
+    switch(plant){
+        case Plant.PEASHOOTER:
+            Peashooter peashooter = new Peashooter(xy[0],xy[1]);
+            if(player.getSolarPoint() >= peashooter.getCost()){
+                plants.add(peashooter);
+                player.plantCost(peashooter.getCost());
+            }
+        break;
+    }
+    cell.setAvailable(false);
+}
+
+void paintPlants(){
+    for(int i=0; i < plants.size(); i++){
+        plants.get(i).drawSelf();
+    }
+}
 
 
 

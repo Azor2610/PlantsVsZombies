@@ -34,7 +34,24 @@ class Board{
     
     public int getColumns(){return columns;}
     
-    public Cell getCell(int r, int c){
-        return cellArray[r][c];
+    public int getInitX(){return initX;}
+    
+    public int getInitY(){return initY;}
+    
+    public int getCellWidth(){return cellWidth;}
+    
+    public int getCellHeight(){return cellHeight;}
+    
+    public Cell getCell(int r, int c){ return cellArray[r][c];}
+    
+    public Cell getCellXY(int x, int y){
+        int c =x/cellWidth - initX/cellWidth; 
+        int r =y/cellHeight - initY/cellHeight - 1; 
+        if(r == -1)
+          r = 0;
+        if(c >= 0 && c < columns && r >= 0 && r < rows && y >= initY){
+            return cellArray[r][c];
+        }
+        return null;
     }
 }

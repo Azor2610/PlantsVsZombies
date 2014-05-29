@@ -5,11 +5,20 @@ abstract class Plant{
     protected int cooldown;
     protected float x,y;
     
-    public Plant(int hp, int cost, int cooldown, float x, float y){
-        this.hp = hp;
-        this.cost = cost;
-        this.cooldown = cooldown;
+    public static final int PEASHOOTER = 1;
+    
+    
+    public Plant(float x, float y){
         this.x = x;
         this.y = y;
     }
+    
+    public void drawSelf(){
+    }
+    
+    public int getHp(){ return hp;}
+    
+    public int getCost(){ return cost;}
+    
+    public int getCooldown(){ return cooldown;}
 }
